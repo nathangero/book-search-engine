@@ -10,23 +10,6 @@ const resolvers = {
         console.error(error)
       }
     },
-    getSingleUser: async (parent, { user, params }, context) => {
-      try {
-        console.log("user:", user);
-        return await User.findOne({
-          $or: [
-            {
-              _id: user ? user._id : params.id
-            },
-            // {
-            //   username: params.username
-            // }
-          ]
-        })
-      } catch (error) {
-        console.error(error)
-      }
-    },
     getMe: async (parent, args, context) => {
       try {
         if (!context.user) {
@@ -87,11 +70,10 @@ const resolvers = {
     },
     deleteBook: async (parent, { bookId }, context) => {
       try {
-        console.log("@deleteBook")
         if (!context.user) {
           throw ErrorAuthentication
         }
-        console.log("bookId:", bookId)
+
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { savedBooks: { bookId: bookId } } },

@@ -24,7 +24,6 @@ const typeDefs = `
 
   type Query {
     users: [User]
-    getSingleUser(user: UserInput!): User
     getMe: User
   }
 
