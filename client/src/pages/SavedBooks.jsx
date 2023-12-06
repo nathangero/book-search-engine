@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import {
   Container,
   Card,
@@ -14,7 +13,6 @@ import { QUERY_GET_ME } from '../utils/queries';
 import { MUTATION_DELETE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
   const { loading, data } = useQuery(QUERY_GET_ME);
   const user = data?.getMe || {}
 

@@ -70,14 +70,14 @@ const resolvers = {
         console.error(error)
       }
     },
-    saveBook: async (parent, { user, book }, context) => {
+    saveBook: async (parent, { book }, context) => {
       try {
         if (!context.user) {
           throw ErrorAuthentication
         }
 
         return await User.findOneAndUpdate(
-          { _id: user._id },
+          { _id: context.user._id },
           { $addToSet: { savedBooks: book }},
           { new: true, runValidators: true }
         )
@@ -85,14 +85,14 @@ const resolvers = {
         console.error(error)
       }
     },
-    deleteBook: async (parent, { user, bookId }, context) => {
+    deleteBook: async (parent, { bookId }, context) => {
       try {
         if (!context.user) {
           throw ErrorAuthentication
         }
         
         return await User.findOneAndUpdate(
-          { _id: user._id },
+          { _id: context.user._id },
           { $pull: { savedBooks: { bookId: bookId } } },
           { new: true }
         )
