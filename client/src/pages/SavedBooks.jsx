@@ -56,16 +56,18 @@ const SavedBooks = () => {
 
     try {
       const { data } = await deleteBook({
-        variables: bookId
+        variables: { bookId },
+        refetchQueries: {
+          query: QUERY_GET_ME
+        }
       });
-      console.log("data:", data);
-      const user = data.deleteBook.user
 
-      if (!data) {
+      const books = data.deleteBook
+
+      if (!books) {
         throw new Error('something went wrong!');
       }
 
-      setUserData(user);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {

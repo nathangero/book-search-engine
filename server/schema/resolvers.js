@@ -87,10 +87,11 @@ const resolvers = {
     },
     deleteBook: async (parent, { bookId }, context) => {
       try {
+        console.log("@deleteBook")
         if (!context.user) {
           throw ErrorAuthentication
         }
-        
+        console.log("bookId:", bookId)
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { savedBooks: { bookId: bookId } } },
