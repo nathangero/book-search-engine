@@ -42,19 +42,20 @@ const resolvers = {
     },
     login: async (parent, { user }, context) => {
       try {
+        console.log("user:", user);
         const foundUser = await User.findOne({
-          $or: [{ username: user.username }, { email: user.email }]
+          email: user.email
         })
 
         if (!foundUser) throw ErrorAuthentication
 
-        const isPasswordCorrect = foundUser.isCorrectPassword(foundUser.password);
+        const isPasswordCorrect = foundUser.isCorrectPassword(user.password);
 
         if (!isPasswordCorrect) throw ErrorAuthentication
 
         const token = signToken(foundUser)
 
-        return { token, foundUser }
+        return { token, user: foundUser }
       } catch (error) {
         console.error(error)
       }

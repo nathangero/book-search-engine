@@ -32,10 +32,10 @@ import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <ApolloClient client={client}>
+    <ApolloProvider client={client}>
       <Navbar />
       <Outlet />
-    </ApolloClient>
+    </ApolloProvider>
   );
 }
 
