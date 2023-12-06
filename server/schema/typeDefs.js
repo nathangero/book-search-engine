@@ -31,7 +31,7 @@ const typeDefs = `
     login(user: UserInput!): Auth
 
     saveBook(user: UserInput!, book: BookInput!): User
-    delete(user: UserInput!, bookId: ID): User
+    deleteBook(user: UserInput!, bookId: ID): User
   }
 
   input UserInput {
