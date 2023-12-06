@@ -26,7 +26,18 @@ const resolvers = {
       } catch (error) {
         console.error(error)
       }
-    }
+    },
+    getMe: async (parent, args, context) => {
+      try {
+        if (!context.user) {
+          throw ErrorAuthentication
+        }
+
+        return await User.findOne({ _id: context.user._id })
+      } catch (error) {
+        console.error(error)
+      }
+    } 
   },
 
   Mutation: {
@@ -42,7 +53,6 @@ const resolvers = {
     },
     login: async (parent, { user }, context) => {
       try {
-        console.log("user:", user);
         const foundUser = await User.findOne({
           email: user.email
         })

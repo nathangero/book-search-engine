@@ -32,7 +32,6 @@ const LoginForm = () => {
 
     try {
       const { data } = await loginUser(userFormData);
-      console.log("data:", data);
       const token = data.login.token
       const user = data.login.user
 
